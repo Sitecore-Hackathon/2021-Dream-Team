@@ -129,6 +129,7 @@
     <Compile Include="Bundler\OptimizedAssetLinksGenerator.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions\ItemExtensions.cs" />
+    <Compile Include="Helper\CriticalCssHelper.cs" />
     <Compile Include="Pipelines\MediaRequestHandler\CriticalCssFiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Templates.cs" />
