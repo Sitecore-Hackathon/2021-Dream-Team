@@ -22,6 +22,7 @@
 <html class="no-js" lang="@Model.Item.Language.Name">
 <!--<![endif]-->
 <head>
+    <!-- Loading CSS styles -->
     @foreach (string style in assetLinks.Styles)
     {
         @Html.Raw(style)
@@ -33,6 +34,7 @@
     @Html.Sitecore().Placeholder("body-top")
     @Html.Sxa().GridBody()
     @Html.Sitecore().Placeholder("body-bottom")
+    <!-- Loading Javascript styles -->
     @foreach (string script in assetLinks.Scripts)
     {
         @Html.Raw(script)
