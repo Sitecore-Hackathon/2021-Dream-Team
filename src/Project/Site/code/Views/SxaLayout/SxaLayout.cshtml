@@ -5,10 +5,13 @@
 @using Sitecore.XA.Foundation.Grid.Extensions
 @using Sitecore.XA.Foundation.Theming.Bundler
 
+@using Foundation.Theme.Bundler
+
 @model Sitecore.Mvc.Presentation.RenderingModel
 
 @{
-    AssetLinks assetLinks = AssetLinksGenerator.GenerateLinks(new ThemesProvider());
+    var themesProvider = new ThemesProvider();
+    var assetLinks = OptimizedAssetLinksGenerator.GenerateLinks(themesProvider);
 }
 
 <!DOCTYPE html>
