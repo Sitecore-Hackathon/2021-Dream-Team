@@ -31,5 +31,12 @@ namespace Foundation.Theme
             }
         }
 
+        public struct File
+        {
+            public struct Fields
+            {
+                public static readonly ID Title = new ID("{3F4B20E9-36E6-4D45-A423-C86567373F82}");
+            }
+        }
     }
 }

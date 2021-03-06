@@ -1,14 +1,10 @@
 ﻿using Sitecore.XA.Foundation.Theming.Bundler;
 using Sitecore.XA.Foundation.Theming.Configuration;
 using Sitecore.XA.Foundation.Theming.EventHandlers;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sitecore.Data.Items;
 using Sitecore.XA.Foundation.SitecoreExtensions.Extensions;
-using Sitecore;
-using Sitecore.Data.Fields;
-using Foundation.Theme.Extensions;
 using Foundation.Theme.Helper;
 
 namespace Foundation.Theme.Bundler
@@ -89,9 +85,24 @@ namespace Foundation.Theme.Bundler
 
         private string GetItemLink(Item themeItem, AssetServiceMode assetServiceMode)
         {
-            var criticalCssItem = new AssetBundler()
+            var criticalCssItem = new CriticalCssAssetBundler()
                 .GetOrCreateCriticalCssItemForDirectory(themeItem, assetServiceMode);
-            return criticalCssItem != null && this.IsNotEmpty(criticalCssItem) ? criticalCssItem.BuildAssetPath(true) : null;
+
+            return criticalCssItem != null && IsNotEmpty(criticalCssItem) ? criticalCssItem.BuildAssetPath(true) : null;
         }
+
+        /// <summary>
+        /// Copy of private method in AssetLinksGenerator
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        private static bool IsNotEmpty(Item item)
+        {
+            using (var stream = ((MediaItem)item).GetMediaStream())
+            {
+                return stream != null && stream.Length > 0;
+            }
+        }
+
     }
 }
