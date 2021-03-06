@@ -171,7 +171,7 @@ namespace Foundation.Theme.Bundler
             string fileName = minify ? Constants.ConcatenatedAndMinifiedFilename : Constants.ConcatenatedFilename;
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
             string itemName = fileNameWithoutExtension.Replace('.', '-');
-            string destination = directory.Paths.FullPath + "/" + itemName;
+            string destination = string.Join( "/", new[] { directory.Paths.FullPath, itemName } );
 
             using (new SecurityDisabler())
             {

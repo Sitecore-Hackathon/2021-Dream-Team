@@ -75,7 +75,7 @@ namespace Foundation.Theme.Bundler
             return assetLinks;
         }
 
-        private void AddAssetInclude(IThemesProvider themesProvider, AssetLinks assetLinks, AssetInclude assetInclude)
+        protected virtual void AddAssetInclude(IThemesProvider themesProvider, AssetLinks assetLinks, AssetInclude assetInclude)
         {
             if (assetInclude is ThemeInclude)
             {

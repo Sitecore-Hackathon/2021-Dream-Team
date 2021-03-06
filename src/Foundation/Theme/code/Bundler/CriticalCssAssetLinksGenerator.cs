@@ -6,6 +6,8 @@ using System.Linq;
 using Sitecore.Data.Items;
 using Sitecore.XA.Foundation.SitecoreExtensions.Extensions;
 using Foundation.Theme.Helper;
+using Sitecore.XA.Foundation.Theming.Pipelines.AssetService;
+using Sitecore.Diagnostics;
 
 namespace Foundation.Theme.Bundler
 {
@@ -27,10 +29,38 @@ namespace Foundation.Theme.Bundler
             return new CriticalCssAssetLinksGenerator().GenerateAssetLinks(themesProvider);
         }
 
+        protected override void AddAssetInclude(IThemesProvider themesProvider, AssetLinks assetLinks, AssetInclude assetInclude)
+        {
+            if (assetInclude is ThemeInclude)
+            {
+                this.AddThemeInclude(assetInclude as ThemeInclude, assetLinks, themesProvider);
+            }
+        }
+
         protected override string GenerateCacheKey(int hash)
         {
             return "criticalcss-" + base.GenerateCacheKey(hash);
         }
+
+        protected new void AddThemeInclude(ThemeInclude themeInclude, AssetLinks assetLinks, IThemesProvider themesProvider)
+        {
+            var themeItem = themeInclude.Theme;
+            if (themeItem == null && !themeInclude.ThemeId.IsNull)
+            {
+                themeItem = ContentRepository.GetItem(themeInclude.ThemeId);
+            }
+
+            if (themeItem == null)
+            {
+                return;
+            }
+
+            Log.Debug($"Starting critical css files generation process for {themeItem.Name} with following configuration {this._configuration}");
+
+            var themeItems = CriticalCssHelper.GetAllThemes(themesProvider, themeItem);
+            this.GetLinks(themeItems, this._configuration.StylesMode, assetLinks);
+        }
+
 
         protected virtual void GetLinks(IEnumerable<Item> themeItems, AssetServiceMode stylesMode, AssetLinks result)
         {
@@ -103,6 +133,5 @@ namespace Foundation.Theme.Bundler
                 return stream != null && stream.Length > 0;
             }
         }
-
     }
 }

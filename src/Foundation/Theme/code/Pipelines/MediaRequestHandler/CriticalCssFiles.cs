@@ -1,6 +1,9 @@
-﻿using Sitecore.Resources.Media;
+﻿using Foundation.Theme.Bundler;
+using Sitecore.Resources.Media;
 using Sitecore.XA.Foundation.MediaRequestHandler.Pipelines.MediaRequestHandler;
+using Sitecore.XA.Foundation.Theming.Configuration;
 using System.Linq;
+using Sitecore.Data.Items;
 
 namespace Foundation.Theme.Pipelines.MediaRequestHandler
 {
@@ -34,5 +37,24 @@ namespace Foundation.Theme.Pipelines.MediaRequestHandler
                 handlerArgs.Media = MediaManager.GetMedia(item);
             }
         }
+
+        protected override Item ReGenerateOptimizedItem(string path, MediaRequest request)
+        {
+            var assetBundler = new CriticalCssAssetBundler();
+            var assetServiceMode = path.Contains("-min.css") ? AssetServiceMode.ConcatenateAndMinify : AssetServiceMode.Concatenate;
+
+            var localPath = path.Substring(0, path.LastIndexOf('/'));
+            var database = request.MediaUri.Database;
+            var item = database.GetItem(GetMediaPath(localPath, database));
+
+            if (item == null)
+            {
+                return null;
+            }
+
+            var result = assetBundler.CreateCriticalCssItemForDirectory(item, assetServiceMode);
+            return result;
+        }
+
     }
 }
