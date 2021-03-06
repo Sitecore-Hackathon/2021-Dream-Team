@@ -115,15 +115,15 @@ namespace Foundation.Theme.Bundler
             if (!Sitecore.Context.PageMode.IsExperienceEditor)
             {
                 var allThemesForContentDelivery = themingContext.GetThemesWithBaseThemes(themeItem, new List<ID>(), Templates._ThemeSettings.Fields.LoadSelectedThemesOnContentDelivery);
-                selectedThemes = themesProvider.GetThemes(themeItem, allThemesForContentDelivery).Union((allThemesForContentDelivery.FilterBaseThemes() ?? new List<Item>())).ToList();
+                selectedThemes = (allThemesForContentDelivery.FilterBaseThemes() ?? new List<Item>()).Union(themesProvider.GetThemes(themeItem, allThemesForContentDelivery)).ToList();
             }
             else
             {
                 selectedThemes = (allThemes.FilterBaseThemes() ?? new List<Item>()).Union(themesProvider.GetThemes(themeItem, allThemes)).ToList();
             }
 
-            this.GetLinks(allThemes.FilterBaseThemes(), this._configuration.ScriptsMode, this._configuration.StylesMode, result);
-            this.GetLinks(themesProvider.GetThemes(themeItem, allThemes), this._configuration.ScriptsMode, this._configuration.StylesMode, result);
+            this.GetLinks(selectedThemes, this._configuration.ScriptsMode, this._configuration.StylesMode, result);
+            this.GetLinks(selectedThemes, this._configuration.ScriptsMode, this._configuration.StylesMode, result);
         }
     }
 }
