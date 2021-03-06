@@ -13,5 +13,10 @@ namespace Foundation.Theme
                 public static readonly ID LoadSelectedThemesOnContentDelivery = new ID("{E4E1919D-5296-4527-A341-8C87EE6D9453}");
             }
         }
+
+        public struct Styles
+        {
+            public static readonly ID TemplateId = new ID("{9C0DAC28-08AA-4B44-BC21-53363206F6A5}");
+        }
     }
 }
