@@ -20,64 +20,33 @@ As we are know, if not then we can type in Google something like this `critical 
 4. And the last one: of course, __use js, css deffer approach, direct font loading, use cache, optimize media, use CDN etc.__
 
 ## Video link
-⟹ Provide a video highlighing your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
-
-⟹ [Replace this Video link](#video-link)
-
+⟹ [Link on a Video](https://youtu.be/nR8q74RPDUY)
 
 
 ## Pre-requisites and Dependencies
 
 ⟹ Does your module rely on other Sitecore modules or frameworks?
-
-- List any dependencies
-- Or other modules that must be installed
-- Or services that must be enabled/configured
-
-_Remove this subsection if your entry does not have any prerequisites other than Sitecore_
+- Sitecore SxA framework
 
 ## Installation instructions
-⟹ Write a short clear step-wise instruction on how to install your module.  
-
-> _A simple well-described installation process is required to win the Hackathon._  
-> Feel free to use any of the following tools/formats as part of the installation:
-> - Sitecore Package files
-> - Docker image builds
-> - Sitecore CLI
-> - msbuild
-> - npm / yarn
-> 
-> _Do not use_
-> - TDS
-> - Unicorn
- 
-f. ex. 
-
-1. Start docker environment using `.\Start-Hackathon.ps1`
-2. Open solution in Visual Studio and run build
-3. Use the Sitecore Installation wizard to install the [package](#link-to-package)
-4. ...
-5. profit
-
-### Configuration
-⟹ If there are any custom configuration that has to be set manually then remember to add all details here.
-
-_Remove this subsection if your entry does not require any configuration that is not fully covered in the installation instructions already_
+1. Use the Sitecore Installation wizard to install the [package](docs/package/DreamTeam Installation Package.zip)
 
 ## Usage instructions
-⟹ Provide documentation about your module, how do the users use your module, where are things located, what do the icons mean, are there any secret shortcuts etc.
+This module contains specific templates: `/sitecore/templates/Foundation/DreamTeam/Theming/Theme` which allow to extend and configurate `Theming` module in SxA. We have two interface templates: `/sitecore/templates/Foundation/DreamTeam/Theming/_ThemeSettings` and `/sitecore/templates/Foundation/DreamTeam/Theming/_ThemeCriticalCSS`.
+The first one, contains a field called: `LoadSelectedThemesOnContentDelivery` used to specify which base theme items to load out side Exp Editor base on a list of `Base Themes` items.
+The second templates, contains two fields: `CriticalCSS` and `Enabled`. Within first field you can specify from a list under current theme select media css items which will be use as part of `criticalcss-optimized-min` file (generated on fly during page load and chached after page loaded). The second field allows to enable (by default, this feature is disabled) generation of critical css for the whole theme.
 
-Include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documentation:
+We modified standard sxa layout file: 
+![SxALayout.cshtml](docs/images/sxalayout_modified.png "SxALayout.cshtml modified")
 
-![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
+As a result of this enhancement:
+Here how list of css and js files was before:
+![In Exp Editor](docs/image/before_changes.png)
 
-You can embed images of different formats too:
+Now:
+![Now](docs/images/after_changes.png)
 
-![Deal With It](docs/images/deal-with-it.gif?raw=true "Deal With It")
-
-And you can embed external images too:
-
-![Random](https://thiscatdoesnotexist.com/)
+Plus, we have critical css optimized-min file on a top of the page in `head` tag. This will allow to paint first age element much faster and will improve `First Contentful Paint (FCP)` performance metric 
 
 ## Comments
-If you'd like to make additional comments that is important for your module entry.
+Thanks for watching. Do not hesitate to contact me or our team with any questions :).
