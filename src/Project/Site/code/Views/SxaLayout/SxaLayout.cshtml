@@ -12,6 +12,7 @@
 @{
     var themesProvider = new ThemesProvider();
     var assetLinks = OptimizedAssetLinksGenerator.GenerateLinks(themesProvider);
+    var criticalCssAssetLinks = CriticalCssAssetLinksGenerator.GenerateLinks(themesProvider);
 }
 
 <!DOCTYPE html>
