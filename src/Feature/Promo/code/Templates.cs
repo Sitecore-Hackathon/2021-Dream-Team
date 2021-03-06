@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Sitecore.Data;
 
-namespace $modulenamespace$
+namespace DreamTeam.Feature.Promo
 {
   public struct Templates
   {

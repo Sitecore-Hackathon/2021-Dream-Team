@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("$moduleNamespace$")]
+[assembly: AssemblyTitle("DreamTeam.Feture.Promo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("$moduleNamespace$")]
-[assembly: AssemblyCopyright("Copyright ©  $year$")]
+[assembly: AssemblyProduct("DreamTeam.Feture.Promo")]
+[assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("$guid1$")]
+[assembly: Guid("ff8602d6-40e8-4dd1-accf-0f01fcabca05")]
 
 // Version information for an assembly consists of the following four values:
 //
