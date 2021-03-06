@@ -23,11 +23,12 @@
 <html class="no-js" lang="@Model.Item.Language.Name">
 <!--<![endif]-->
 <head>
-    <!-- Loading CSS styles -->
-    @foreach (string style in assetLinks.Styles)
+    <!-- Load only critical css synchronusly -->
+    @foreach (string style in criticalCssAssetLinks.Styles)
     {
         @Html.Raw(style)
     }
+
     @Html.Sxa().VisitorIdentification()
     @Html.Sxa().Placeholder("head")
 </head>
@@ -35,6 +36,13 @@
     @Html.Sitecore().Placeholder("body-top")
     @Html.Sxa().GridBody()
     @Html.Sitecore().Placeholder("body-bottom")
+
+    <!-- Loading CSS styles -->
+    @foreach (string style in assetLinks.Styles)
+    {
+        @Html.Raw(style)
+    }
+
     <!-- Loading Javascript styles -->
     @foreach (string script in assetLinks.Scripts)
     {
