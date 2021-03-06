@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Sitecore.Data.Items;
 using Sitecore.XA.Foundation.SitecoreExtensions.Extensions;
+using Sitecore;
+using Sitecore.Data.Fields;
+using Foundation.Theme.Extensions;
 
 namespace Foundation.Theme.Bundler
 {
@@ -52,5 +55,69 @@ namespace Foundation.Theme.Bundler
                 }
             }
         }
+
+        protected override void GetStylesLinks(Item stylesItem, AssetServiceMode assetServiceMode, AssetLinks assetLinks)
+        {
+            switch (assetServiceMode)
+            {
+                case AssetServiceMode.Disabled:
+                    {
+                        var criticalCssItems = GetCriticalCssItems(stylesItem)
+                            .Select(x => x.BuildAssetPath());
+
+                        foreach (var item in criticalCssItems)
+                        {
+                            assetLinks.Styles.Add(item);
+                        }
+
+                        break;
+                    }
+                case AssetServiceMode.Concatenate:
+                case AssetServiceMode.ConcatenateAndMinify:
+                    {
+                        var criticalCssItemLink = this.GetItemLink(stylesItem, assetServiceMode);
+                        if (!string.IsNullOrEmpty(criticalCssItemLink))
+                        {
+                            assetLinks.Styles.Add(criticalCssItemLink);
+                        }
+
+                        break;
+                    }
+            }
+        }
+
+        private string GetItemLink(Item themeItem, AssetServiceMode assetServiceMode)
+        {
+            var criticalCssItem = new AssetBundler()
+                .CreateOptimizedItemForDirectory(themeItem, OptimizationType.Styles);
+
+            return criticalCssItem != null ? criticalCssItem.BuildAssetPath(true) : null;
+        }
+
+        private static IEnumerable<Item> GetCriticalCssItems(Item contextItem)
+        {
+            if (contextItem == null)
+            {
+                return Array.Empty<Item>();
+            }
+
+            var themeItem = contextItem.GetAncestorOrSelfOfTemplate(Sitecore.XA.Foundation.Theming.Templates._ProtectedTheme.ID);
+            if (themeItem == null || !themeItem.InheritsFrom(Templates._ThemeCriticalCss.TemplateId))
+            {
+                return Array.Empty<Item>();
+            }
+
+            var criticalCssEnabled = MainUtil.GetBool(themeItem[Templates._ThemeCriticalCss.Fields.CriticalCssEnabled], false);
+            if (!criticalCssEnabled)
+            {
+                return Array.Empty<Item>();
+            }
+
+            var criticalCssItems = ((MultilistField)themeItem.Fields[Templates._ThemeCriticalCss.Fields.CriticalCssItems]).GetItems()
+                .Where(x => !x.InheritsFrom(Sitecore.XA.Foundation.Theming.Templates.OptimizedFile.ID));
+
+            return criticalCssItems;
+        }
+
     }
 }
