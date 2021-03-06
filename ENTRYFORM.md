@@ -12,10 +12,13 @@ The most painful problem which every business try to resolve is performance opti
 Specifically for this reason we have 3 enhancement in `SxA Theme` module which will mitigate a problems described above.
 As we are know, if not then we can type in Google something like this `critical css sxa sitecore` and get a lot of recommendations to improve this situation. Here the options which we can enhance with `SxA Theme`:
 1. __Remove unused css and js code from CD env.__
+
 ⋅⋅*Typically when we rendering a page on CD env. all js and css from `Base Themes` as well loading on a page. With our module will be possible to specify what should be included from `Base Theme` into a live page witnin `AssetLinksGenerator` output.
 2. __Use critical css for the page__
+
 ⋅⋅*Of course, critical css should improve page performance and should be loaded above the page as fast as possible. One problem for the developer to identify css which are critical (it depends from first page elements and require research those critical components over pages), the second one, how to distinguish those css entry, since, it is part of `Site Theme` and, of course, this should be separate out `optimized-min` file.
 3. __Use css and js which are required by components on a page__
+
 ⋅⋅*This is the most hardest part, since, require specific service which will collect base on list of `Renderings` on a page scope of js and css files which should be optimized on fly and embedded with `AssetLinksGenerator` output.
 4. And the last one: of course, __use js, css deffer approach, direct font loading, use cache, optimize media, use CDN etc.__
 
@@ -41,7 +44,7 @@ We modified standard sxa layout file:
 
 As a result of this enhancement:
 Here how list of css and js files was before:
-![In Exp Editor](docs/image/before_changes.png)
+![In Exp Editor](docs/images/before_changes.png)
 
 Now:
 ![Now](docs/images/after_changes.png)
